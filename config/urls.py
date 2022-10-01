@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,7 @@ urlpatterns = [
 urlpatterns += [
     path('api/auth/', include('apps.authentication.api_urls', namespace='authentication_api')),
     path('api/imdb/', include('apps.imdb.api_urls', namespace='movies_api')),
+    re_path(r'^auth/', include('drf_social_oauth2.urls', namespace='drf'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,10 +1,3 @@
-<template>
-  <title>Movies</title>
-  <main>
-    <MoviesForm />
-  </main>
-</template>
-
 <script>
 import MoviesForm from "../components/MoviesForm.vue";
 
@@ -13,6 +6,13 @@ export default {
   components: {MoviesForm}
 }
 </script>
+
+<template>
+  <title>Movies</title>
+  <main>
+    <MoviesForm />
+  </main>
+</template>
 
 <style scoped>
 

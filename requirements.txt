@@ -1,4 +1,4 @@
-Django==4.1.1
+Django==4.1
 psycopg2-binary==2.9.3
 celery==5.2.7
 djangorestframework==3.14.0
@@ -10,3 +10,5 @@ redis==4.3.4
 beautifulsoup4==4.11.1
 requests==2.28.1
 fake-useragent==0.1.11
+django-filter==22.1
+drf-social-oauth2==1.2.1

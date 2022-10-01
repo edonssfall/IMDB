@@ -35,7 +35,7 @@ class PersonsMovie(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    movie_id = PersonsMovie(many=True)
+    movie_id = PersonsMovie(many=True, read_only=True)
 
     class Meta:
         model = Movie

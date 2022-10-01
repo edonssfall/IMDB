@@ -1,10 +1,3 @@
-<template>
-  <title>Home</title>
-  <main>
-    <Homeform/>
-  </main>
-</template>
-
 <script>
 import Homeform from "../components/Homeform.vue";
 
@@ -13,6 +6,13 @@ export default {
   components: {Homeform}
 }
 </script>
+
+<template>
+  <title>Home</title>
+  <main>
+    <Homeform/>
+  </main>
+</template>
 
 <style scoped>
 
