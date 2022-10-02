@@ -1,20 +1,17 @@
 <template>
-  <div class="title">
-    <router-link to="movies" style="color: black; text-decoration: none">Movies</router-link>
-    >
-    <router-link v-bind:to="`${movie.imdb_id}`" style="text-decoration: none; color: black">{{ movie.name }}
-    </router-link>
-  </div>
+
   <div class="block">
     <div class="detail_pic">
       <img v-if="this.movie.poster_url === null" src="../../../static/images/default-movie.jpg">
       <img v-else :src="this.movie.poster_url">
     </div>
     <div class="detail_info">
-      <div class="label" style="height: 28px; width: 187px; font-size: 20px">
-        <h4>{{ this.movie.name }}</h4>
+      <div class="label">
+        <h2>{{ this.movie.name }}</h2>
+        <img v-if="userStore.UserIsStaff" @click="this.ShowModal" src="../../../static/images/edit_logo.png"
+             data-bs-toggle="modal" data-bs-target="#exampleModal">
       </div>
-      <br>
+
       <br>
       <br>
       <template class="genres" data-bs-toggle="tooltip" v-for="genre in movie.genres">
@@ -27,11 +24,11 @@
           </template>
         </template>
       </template>
-      <h5 v-if="this.movie.year !== null" class="year">{{ this.movie.year }}</h5>
+      <h5 v-if="this.movie.year" class="year">{{ this.movie.year }}</h5>
       <h5 v-else>Unknown year</h5>
       <br>
       <br>
-      <h3 v-if="this.movie.rating_imdb !== null">{{ this.movie.rating_imdb }}</h3>
+      <h3 v-if="this.movie.rating_imdb">Rating IMDB: {{ this.movie.rating_imdb }}</h3>
       <h3 v-else>No Rating</h3>
     </div>
   </div>
@@ -41,7 +38,6 @@
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Position</th>
-      <th scope="col">Role</th>
     </tr>
     </thead>
     <tbody>
@@ -49,15 +45,15 @@
       <template v-for="nami in movi.person_id">
         <td scope="row">{{ nami }}</td>
         <td>{{ movi.job }}</td>
-        <td></td>
       </template>
     </tr>
     </tbody>
   </table>
+
   <div class="side_rec">
     <h1>Movies Like This</h1>
     <div class="col" v-for="rec_movie in this.rec_movies" :key="movie.imdb_id">
-      <div class="card mb-3" @click="NextMovie" >
+      <div class="card mb-3" @click="NextMovie">
         <router-link v-bind:to="`${rec_movie.imdb_id}`" style="text-decoration: none">
           <div class="row g-0">
             <div class="col-md-4">
@@ -78,18 +74,105 @@
     </div>
   </div>
 
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+       v-if="showModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit {{this.movie.name}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/api/imdb/title/${{this.movie.imdb_id}}/edit" data-method="PUT" enctype="multipart/form-data"
+                class="form-horizontal" novalidate="">
+            <fieldset>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  {{movie.rating_imdb}}
+                </label>
+                <div class="col-sm-10">
+                  <input name="rating_imdb" class="form-control" type="text" placeholder="IMDB Rating">
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  {{movie.imdb_id}}
+                </label>
+                <div class="col-sm-10">
+                  <input name="imdb_id" class="form-control" type="text" placeholder="IMDB id">
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  {{movie.name}}
+                </label>
+                <div class="col-sm-10">
+                  <input name="name" class="form-control" type="text" placeholder="Name">
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  {{movie.year}}
+                </label>
+                <div class="col-sm-10">
+                  <input name="year" class="form-control" type="date" placeholder="Release Data">
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  Url_image
+                </label>
+                <div class="col-sm-10">
+                  <input name="poster_url" class="form-control" type="text" placeholder="https://">
+                </div>
+              </div>
+              <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                  {{movie.rank}}
+                </label>
+                <div class="col-sm-10">
+                  <input name="rank" class="form-control" type="number" placeholder='Rank'>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <form action="/api/imdb/title/{{movie.imdb_id}}/edit" data-method="PUT" class="form-horizontal">
+            <fieldset>
+              <div class="form-actions">
+                <button class="btn btn-primary js-tooltip" title=""
+                        data-original-title="Make a PUT request on the Movie Edit Api resource">PUT
+                </button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
+import {useUserStore} from "../stores/user";
 import {useRoute} from 'vue-router';
-
+import MovieEditForm from "./MovieEditForm.vue";
 
 export default {
   name: "MovieDetailsForm",
+  components: {MovieEditForm},
+  setup() {
+    const userStore = useUserStore();
+    return {
+      userStore
+    }
+  },
   data() {
     return {
       movie: [],
-      rec_movies: []
+      rec_movies: [],
+      showModal: false
     }
   },
   async beforeMount() {
@@ -112,16 +195,14 @@ export default {
       for (const item of movie_genres) {
         request_genres += '&genres=' + item
       }
-      const response = await fetch(
-          `api/imdb/?${request_genres}`
-      )
+      const response = await fetch(`api/imdb/?title=${this.movie.imdb_id}${request_genres}`)
       if (response.status === 200) {
         const data = await response.json()
         this.rec_movies = data.results
       }
     },
-    async NextMovie() {
-      await this.MovieDetails()
+    ShowModal() {
+      this.showModal = true
     }
   }
 }
@@ -130,38 +211,40 @@ export default {
 
 <style scoped>
 
-.title {
-  font-size: 50px;
+
+.label img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .detail_pic img {
-  position: absolute;
-  left: 75px;
-  top: 172px;
-  width: 190px;
-  height: 310px;
+  float: left;
+  margin-top: 90px;
+  margin-left: 50px;
+  width: 430px;
+  height: 600px;
 }
 
 .detail_info {
-  position: absolute;
-  left: 278px;
-  top: 172px;
+  float: left;
+  margin-top: 90px;
+  margin-left: 60px;
   width: 350px;
   height: 310px;
 }
 
 .table {
-  position: absolute;
-  left: 73px;
-  top: 480px;
+  float: left;
+  margin-top: 140px;
   width: 460px;
   height: 263px;
 }
 
 .side_rec {
-  position: absolute;
-  left: 893px;
-  top: 172px;
+  float: right;
+  margin-right: 50px;
+  margin-top: 90px;
   width: 350px;
   height: 550px;
 }

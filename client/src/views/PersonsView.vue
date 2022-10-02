@@ -1,9 +1,9 @@
 <script>
-import PersonForm from "../components/PersonForm.vue";
+import PersonsForm from "../components/PersonsForm.vue";
 
 export default {
-  name: "PersonView",
-  components: {PersonForm}
+  name: "PersonsView",
+  components: {PersonsForm}
 }
 </script>
 

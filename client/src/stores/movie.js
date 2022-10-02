@@ -4,12 +4,13 @@ import {useRoute} from "vue-router";
 export const useMovieStore = defineStore('movie', {
     state: () => ({
         movies: [],
-        movie: null,
+        movie: [],
+        rec_movies: [],
         currentPage: 1,
         total_pages: null,
         showNext: false,
         showPrevious: false,
-        isLoading: false
+        isLoading: false,
     }),
 
     actions: {
@@ -46,7 +47,20 @@ export const useMovieStore = defineStore('movie', {
             if (response.status === 200) {
                 this.movie = await response.json()
             }
-            this.isLoading = false
+        },
+        async MovieRec() {
+            let movie_genres = this.movie.genres
+            let request_genres = ''
+            for (const item of movie_genres) {
+                request_genres += '&genres=' + item
+            }
+            const response = await fetch(
+                `api/imdb/?title=${this.movie.imdb_id}${request_genres}`
+            )
+            if (response.status === 200) {
+                const data = await response.json()
+                this.rec_movies = data.results
+            }
         }
     }
 })

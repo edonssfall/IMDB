@@ -66,9 +66,6 @@ export default {
       if (response.status === 200) {
         const data = await response.json()
         this.persons = data.results
-        // const resp = await fetch('https://imdb-api.com/API/FullCast/k_o57coyq8/tt1375666')
-        // const dt = await resp.json()
-        // console.log(dt)
         if (data.next) {
           this.showNext = true
           this.disableNext = false

@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from "../views/RegisterView.vue";
 import MoviesView from "../views/MoviesView.vue";
-import PersonView from "../views/PersonView.vue";
+import PersonsView from "../views/PersonsView.vue";
 import HomeView from "../views/HomeView.vue";
 import MovieDetailsView from "../views/MovieDetailsView.vue";
 
@@ -32,7 +32,7 @@ const router = createRouter({
         {
             path: '/persons',
             name: 'person',
-            component: PersonView
+            component: PersonsView
         },
         {
             path: '/:movie_slug',

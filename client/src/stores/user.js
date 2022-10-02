@@ -23,6 +23,9 @@ export const useUserStore = defineStore('user', {
         },
         getUserId(state) {
             return state.user ? state.user.id : null;
+        },
+        UserIsStaff(state) {
+            return state.user ? state.user.is_staff : false
         }
     },
 
