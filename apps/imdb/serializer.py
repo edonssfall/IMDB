@@ -49,3 +49,17 @@ class MovieSerializer(serializers.ModelSerializer):
             'rank',
             'movie_id',
         ]
+
+
+class MovieEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = [
+            'rating_imdb',
+            'imdb_id',
+            'name',
+            'year',
+            'poster_url',
+            'rank'
+        ]

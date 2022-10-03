@@ -63,18 +63,15 @@ export default {
     async registerUser(e) {
       e.preventDefault()
       e.stopPropagation()
-
-      const resp = await apiFetch('/api/auth/register/',
+      const response = await apiFetch('/api/auth/register/',
           {
             method: 'POST',
             body: JSON.stringify(this.data)
           })
-
-      if (resp.status !== 201) {
-        this.error = await resp.json()
-        return
+      if (response.status !== 201) {
+        this.error = await response.json()
       } else {
-        const data = await resp.json()
+        const data = await response.json()
         localStorage.setItem('userToken', data.access)
         await useUserStore().fetchUser();
         location.href = '/login'

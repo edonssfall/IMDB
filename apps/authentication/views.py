@@ -18,5 +18,4 @@ class CurrentUserAPIView(RetrieveAPIView):
     def get_object(self):
         if not self.request.user.is_authenticated:
             raise Http404
-
         return self.request.user
