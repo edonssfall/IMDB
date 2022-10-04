@@ -125,6 +125,7 @@
 <script>
 import {useUserStore} from "../stores/user";
 import {useRoute} from 'vue-router';
+import Cookies from 'js-cookie';
 
 export default {
   name: "MovieDetailsForm",
@@ -161,6 +162,9 @@ export default {
       if (response.status === 200) {
         this.movie = await response.json()
       }
+      for (const [key, value] of Object.entries(this.movie_data)) {
+          this.movie_data[key] = this.movie[key]
+      }
       return this.movie
     },
     async MovieRec() {
@@ -177,23 +181,16 @@ export default {
       }
     },
     async MovieEdit(e) {
-      for (const [key, value] of Object.entries(this.movie_data)) {
-        if (value === null) {
-          this.movie_data[key] = this.movie[key]
-        }
-      }
       const response = await fetch(`api/imdb/title/${this.movie.imdb_id}/edit`, {
         method: 'PUT',
         headers: {
-          'X-CSRFToken': "P4cuoh021r2dWDLB69dkJmcYUWSJxbZphCtnET41ZNEziCxMBA44kKfcTJnwAifU",
+          'X-CSRFToken': Cookies.get('csrftoken'),
           'content-type': 'application/json'
         },
         body: JSON.stringify(this.movie_data)
       })
       if (response.status !== 201) {
         this.error = await response.json()
-        console.log(this.error)
-
       }
     }
   },
@@ -241,7 +238,7 @@ export default {
 .side_rec {
   float: right;
   margin-right: 50px;
-  margin-top: 90px;
+  margin-top: 60px;
   width: 350px;
   height: 550px;
 }
