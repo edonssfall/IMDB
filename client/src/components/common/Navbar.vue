@@ -4,11 +4,12 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
-            <RouterLink to="movies" class="nav-link active" aria-current="page" style="color: white">Movies</RouterLink>
+            <router-link to="/movies" class="nav-link active" aria-current="page" style="color: white">Movies
+            </router-link>
           </li>
           <li class="nav-item">
-            <RouterLink to="persons" class="nav-link active" aria-current="page" style="color: white">Persons
-            </RouterLink>
+            <router-link to="/persons" class="nav-link active" aria-current="page" style="color: white">Persons
+            </router-link>
           </li>
         </ul>
         <UserBadge/>

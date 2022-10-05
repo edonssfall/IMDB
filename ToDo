@@ -1,0 +1,22 @@
+-DONE Put method to edit movie
+-DONE CSRFtoken add to headers Edit
+-DONE isLoading on full page
+-50/50 go to rec movies?
+-DONE to css movie list
+-DONE Persons list
+-DONE person details
+-from persons recommended person from one film
+-person edit
+-from movies to person links
+-white circle after user logo
+-to css login and register
+-to css home page
+-social auth
+-throttling shield
+-deploy
+
+-search field
+-filter for movies
+ *link on filter from movie
+-filter for persons
+-dynamic pagination

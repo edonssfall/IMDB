@@ -36,6 +36,7 @@
 <script>
 import {useUserStore} from "../stores/user";
 import {apiFetch} from "../utils/api"
+import {DjangoAPIHost} from "../global";
 
 export default {
   name: "LoginForm",
@@ -53,7 +54,7 @@ export default {
       e.preventDefault()
       e.stopPropagation()
 
-      const response = await apiFetch('/api/auth/login/',
+      const response = await apiFetch(DjangoAPIHost + '/api/auth/login/',
           {
             method: 'POST',
             body: JSON.stringify(this.data)

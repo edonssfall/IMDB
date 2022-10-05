@@ -44,6 +44,7 @@
 <script>
 import {useUserStore} from "../stores/user";
 import {apiFetch} from "../utils/api"
+import {DjangoAPIHost} from "../global";
 
 export default {
   name: "RegisterForm",
@@ -63,7 +64,7 @@ export default {
     async registerUser(e) {
       e.preventDefault()
       e.stopPropagation()
-      const response = await apiFetch('/api/auth/register/',
+      const response = await apiFetch(DjangoAPIHost + '/api/auth/register/',
           {
             method: 'POST',
             body: JSON.stringify(this.data)

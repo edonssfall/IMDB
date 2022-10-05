@@ -28,6 +28,7 @@ class Persons(serializers.ModelSerializer):
 
 class PersonsMovie(serializers.ModelSerializer):
     person_id = Persons()
+    movie_id = Movies()
 
     class Meta:
         model = PersonMovie
@@ -63,3 +64,11 @@ class MovieEditSerializer(serializers.ModelSerializer):
             'poster_url',
             'rank'
         ]
+
+
+class PersonSerializer(serializers.ModelSerializer):
+    person_id = PersonsMovie(many=True, read_only=True)
+
+    class Meta:
+        model = Person
+        fields = '__all__'

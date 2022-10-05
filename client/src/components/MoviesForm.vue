@@ -1,9 +1,15 @@
 <template>
 
-  <div class="v-movies">
+  <div v-show="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+    </div>
+    <h3>Loading...</h3>
+  </div>
+
+  <div v-show="isLoading === false">
     <div class="row row-cols-xxl-6 align-items-center">
-      <div class="col" v-for="movie in this.movies" >
-        <router-link v-bind:to="`${movie.imdb_id}`" :key="movie.imdb_id" style="text-decoration: none">
+      <div class="col" v-for="movie in this.movies">
+        <router-link v-bind:to="`title/${movie.imdb_id}`" :key="movie.imdb_id" style="text-decoration: none">
           <div class="card">
             <img v-if="movie.poster_url === null" src="../../../static/images/default-movie.jpg">
             <img v-else :src="movie.poster_url">
@@ -25,21 +31,24 @@
         </router-link>
       </div>
     </div>
+    <br>
+    <div class="pagination justify-content-center">
+      <li class="page-item previous" v-if="showPrevious">
+        <a class="page-link" @click="loadPrevious">Previous</a>
+      </li>
+      <li class="my_pagination">Current page is {{ this.currentPage }} of {{ this.total_pages }}</li>
+      <li class="page-item next" v-if="showNext">
+        <a class="page-link" @click="loadNext">Next</a>
+      </li>
+    </div>
   </div>
-  <br>
-  <div class="pagination justify-content-center">
-    <li class="page-item previous" v-if="showPrevious">
-      <a class="page-link" @click="loadPrevious">Previous</a>
-    </li>
-    <li class="my_pagination">Current page is {{ this.currentPage }} of {{ this.total_pages }}</li>
-    <li class="page-item next" v-if="showNext">
-      <a class="page-link" @click="loadNext">Next</a>
-    </li>
-  </div>
+
 </template>
 
 <script>
 
+
+import {DjangoAPIHost} from "../global";
 
 export default {
   name: "MoviesForm",
@@ -50,8 +59,7 @@ export default {
       total_pages: null,
       showNext: false,
       showPrevious: false,
-      isLoading: false,
-      movie_slug: null
+      isLoading: false
     }
   },
   async beforeMount() {
@@ -68,7 +76,7 @@ export default {
     },
     async MoviesList() {
       this.isLoading = true
-      const response = await fetch(`api/imdb/movies/?page=${this.currentPage}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/movies/?page=${this.currentPage}`)
       if (response.status === 200) {
         const data = await response.json()
         this.movies = data.results
@@ -91,6 +99,10 @@ export default {
 </script>
 
 <style scoped>
+
+.spinner-border {
+  margin-top: 100px;
+}
 
 .card {
   margin: 20px;

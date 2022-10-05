@@ -10,7 +10,7 @@ export default {
 <template>
   <title>Persons</title>
   <main>
-    <PersonForm/>
+    <PersonsForm />
   </main>
 </template>
 

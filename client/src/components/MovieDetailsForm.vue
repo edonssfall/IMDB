@@ -1,139 +1,151 @@
 <template>
-  {{ error }}
-  <div class="block">
-    <div class="detail_pic">
-      <img v-if="this.movie.poster_url === null" src="../../../static/images/default-movie.jpg">
-      <img v-else :src="this.movie.poster_url">
-    </div>
-    <div class="detail_info">
-      <div class="label">
-        <h2>{{ this.movie.name }}</h2>
-        <img v-if="userStore.UserIsStaff" src="../../../static/images/edit_logo.png"
-             data-bs-toggle="modal" data-bs-target="#exampleModal">
-      </div>
 
-      <br>
-      <br>
-      <template class="genres" data-bs-toggle="tooltip" v-for="genre in movie.genres">
-        <span class="badge rounded-pill bg-secondary">{{ genre }}</span>{{ ' ' }}
-      </template>
-      <template v-for="movi in this.movie.movie_id">
-        <template v-if="movi.job === 'director'">
-          <template v-for="directors in movi.person_id">
-            <h5 class="director">{{ directors }}</h5>
+  <div v-show="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+    </div>
+    <h3>Loading...</h3>
+  </div>
+
+  <div v-show="isLoading === false">
+    <div class="block">
+      <div class="detail_pic">
+        <img v-if="this.movie.poster_url === null" src="../../../static/images/default-movie.jpg">
+        <img v-else :src="this.movie.poster_url">
+      </div>
+      <div class="detail_info">
+        <div class="label">
+          <h2>{{ this.movie.name }}</h2>
+          <img v-if="userStore.UserIsStaff" src="../../../static/images/edit_logo.png"
+               data-bs-toggle="modal" data-bs-target="#exampleModal">
+        </div>
+
+        <br>
+        <br>
+        <template class="genres" data-bs-toggle="tooltip" v-for="genre in movie.genres">
+          <span class="badge rounded-pill bg-secondary">{{ genre }}</span>{{ ' ' }}
+        </template>
+        <template v-for="movi in this.movie.movie_id">
+          <template v-if="movi.job === 'director'">
+            <template v-for="directors in movi.person_id">
+              <h5 class="director">{{ directors }}</h5>
+            </template>
           </template>
         </template>
-      </template>
-      <h5 v-if="this.movie.year" class="year">{{ this.movie.year }}</h5>
-      <h5 v-else>Unknown year</h5>
-      <br>
-      <br>
-      <h3 v-if="this.movie.rating_imdb">Rating IMDB: {{ this.movie.rating_imdb }}</h3>
-      <h3 v-else>No Rating</h3>
+        <h5 v-if="this.movie.year" class="year">{{ this.movie.year }}</h5>
+        <h5 v-else>Unknown year</h5>
+        <br>
+        <br>
+        <h3 v-if="this.movie.rating_imdb">Rating IMDB: {{ this.movie.rating_imdb }}</h3>
+        <h3 v-else>No Rating</h3>
+      </div>
     </div>
-  </div>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Position</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="movi in this.movie.movie_id">
-      <template v-for="nami in movi.person_id">
-        <td scope="row">{{ nami }}</td>
-        <td>{{ movi.job }}</td>
-      </template>
-    </tr>
-    </tbody>
-  </table>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Position</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="movi in this.movie.movie_id">
+        <template v-for="nami in movi.person_id">
+          <td scope="row">{{ nami }}</td>
+          <td>{{ movi.job }}</td>
+        </template>
+      </tr>
+      </tbody>
+    </table>
 
-  <div class="side_rec">
-    <h1>Movies Like This</h1>
-    <div class="col" v-for="rec_movie in this.rec_movies">
-      <div class="card mb-3">
-        <router-link v-bind:to="`${rec_movie.imdb_id}`" style="text-decoration: none" :key="rec_movie.imdb_id">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img v-if="rec_movie.poster_url === null" src="../../../static/images/default-movie.jpg">
-              <img v-else :src="rec_movie.poster_url">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">{{ rec_movie.name }}</h5>
-                <template class="genres" data-bs-toggle="tooltip" v-for="genre in rec_movie.genres">
-                  <span class="badge rounded-pill bg-secondary">{{ genre }}</span>{{ ' ' }}
-                </template>
+    <div class="side_rec">
+      <h1>Movies Like This</h1>
+      <div class="col" v-for="rec_movie in this.rec_movies">
+        <div class="card mb-3">
+          <router-link v-bind:to="`${rec_movie.imdb_id}`" style="text-decoration: none"
+                       :key="rec_movie.imdb_id" @click="RecMovie">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img v-if="rec_movie.poster_url === null" src="../../../static/images/default-movie.jpg">
+                <img v-else :src="rec_movie.poster_url">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ rec_movie.name }}</h5>
+                  <template class="genres" data-bs-toggle="tooltip" v-for="genre in rec_movie.genres">
+                    <span class="badge rounded-pill bg-secondary">{{ genre }}</span>{{ ' ' }}
+                  </template>
+                </div>
               </div>
             </div>
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit {{ this.movie.name }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </router-link>
+          <div class="modal-body">
+            <form @submit="MovieEdit">
+              <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="movie_data.name">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Release Date</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" v-model="movie_data.year">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Rating IMDB</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="movie_data.rating_imdb">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Rank</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" v-model="movie_data.rank">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">URL</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="movie_data.poster_url">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="float: right">PUT</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit {{ this.movie.name }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form @submit="MovieEdit">
-            <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label">{{ this.movie.name }}</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="movie_data.name">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label">{{ this.movie.year }}</label>
-              <div class="col-sm-10">
-                <input type="date" class="form-control" v-model="movie_data.year">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label">{{ this.movie.rating_imdb }}</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="movie_data.rating_imdb">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label">{{ this.movie.rank }}</label>
-              <div class="col-sm-10">
-                <input type="number" class="form-control" v-model="movie_data.rank">
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="inputPassword" class="col-sm-2 col-form-label">URL</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" v-model="movie_data.poster_url">
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="float: right">PUT</button>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 
 </template>
 
 <script>
 import {useUserStore} from "../stores/user";
-import {useRoute} from 'vue-router';
 import Cookies from 'js-cookie';
+import {ref} from "vue";
+import {useMovieStore} from "../stores/movie";
+import {DjangoAPIHost} from "../global"
 
 export default {
   name: "MovieDetailsForm",
   setup() {
-    const userStore = useUserStore()
-    const movie_slug = useRoute().params.movie_slug
+    const userStore = ref(useUserStore())
+    const movieStore = ref(useMovieStore())
     return {
-      userStore, movie_slug
+      userStore, movieStore
     }
   },
   data() {
@@ -141,6 +153,7 @@ export default {
       movie: [],
       rec_movies: [],
       error: null,
+      isLoading: false,
       movie_data: {
         rating_imdb: null,
         imdb_id: null,
@@ -152,20 +165,23 @@ export default {
     }
   },
   async beforeMount() {
-    await this.MovieDetails(this.movie_slug)
+    await this.MovieDetails()
     await this.MovieRec()
   },
   methods: {
-    async MovieDetails(movie_slug) {
+    async RecMovie() {
+      await this.MovieDetails()
+      await this.MovieRec()
+    },
+    async MovieDetails() {
       this.isLoading = true
-      const response = await fetch(`api/imdb/title/${movie_slug}`)
+      const response = await fetch( DjangoAPIHost + `api/imdb/title/${this.$route.params['movie_slug']}`)
       if (response.status === 200) {
         this.movie = await response.json()
       }
       for (const [key, value] of Object.entries(this.movie_data)) {
-          this.movie_data[key] = this.movie[key]
+        this.movie_data[key] = this.movie[key]
       }
-      return this.movie
     },
     async MovieRec() {
       let movie_genres = this.movie.genres
@@ -173,15 +189,15 @@ export default {
       for (const item of movie_genres) {
         request_genres += '&genres=' + item
       }
-      const response = await fetch(`api/imdb/?title=${this.movie.imdb_id}${request_genres}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/titles/?title=${this.movie.imdb_id}${request_genres}`)
       if (response.status === 200) {
         const data = await response.json()
         this.rec_movies = data.results
-        this.isLoading = false
       }
+      this.isLoading = false
     },
-    async MovieEdit(e) {
-      const response = await fetch(`api/imdb/title/${this.movie.imdb_id}/edit`, {
+    async MovieEdit() {
+      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.movie.imdb_id}/edit`, {
         method: 'PUT',
         headers: {
           'X-CSRFToken': Cookies.get('csrftoken'),
@@ -193,10 +209,6 @@ export default {
         this.error = await response.json()
       }
     }
-  },
-  async Next() {
-    await this.MovieDetails(this.movie_slug)
-    await this.MovieRec()
   }
 }
 
@@ -204,6 +216,9 @@ export default {
 
 <style scoped>
 
+.spinner-border {
+  margin-top: 100px;
+}
 
 .label img {
   width: 40px;

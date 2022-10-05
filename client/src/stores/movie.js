@@ -1,16 +1,25 @@
 import {defineStore} from "pinia";
 
 export const useMovieStore = defineStore('movie', {
-    state: () => ({
-        movies: null,
-        movie: null,
-        rec_movies: null,
-        showNext: false,
-        showPrevious: false,
-        currentPage: 1,
-        total_pages: null,
-        isLoading: false,
-    }),
+    state: () => {
+        return{
+            movies: null,
+            movie: [],
+            rec_movies: null,
+            showNext: false,
+            showPrevious: false,
+            currentPage: 1,
+            total_pages: null,
+            isLoading: false,
+        }
+    },
+    getters: {
+        getMovieDetails(state) {
+            if (state.movie) {
+                return state.movie ? state.movie: []
+            }
+        }
+    },
     actions: {
         async loadNext() {
             this.currentPage += 1
@@ -36,7 +45,6 @@ export const useMovieStore = defineStore('movie', {
             if (response.status === 200) {
                 this.movie = await response.json()
             }
-            return this.movie
         },
         async MovieRec() {
             let movie_genres = this.movie.genres

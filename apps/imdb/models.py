@@ -30,7 +30,8 @@ class Person(models.Model):
     name = models.CharField(_("Name"), max_length=255)
     birth_year = models.DateField(_("Birth Year"), null=True)
     death_year = models.DateField(_("Death Year"), null=True)
-    image_url = models.CharField(_("url_image"), max_length=255, null=True, blank=True)
+    image_url = models.CharField(_("Url Image"), max_length=255, null=True, blank=True)
+    birth_place = models.CharField(_("Birth Place"), max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.imdb_id

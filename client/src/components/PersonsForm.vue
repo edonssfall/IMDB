@@ -1,52 +1,53 @@
 <template>
-  <div class="text">
-    <ul>
-      <li v-for="person in this.persons">{{ person.name }}</li>
-    </ul>
+
+  <div v-show="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+    </div>
+    <h3>Loading...</h3>
   </div>
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled" v-if="disablePrevious">
-      <a class="page-link">Previous</a>
-    </li>
-    <li class="page-item" v-if="showPrevious">
-      <a class="page-link" @click="loadPrevious">Previous</a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item" aria-current="page">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item disabled" v-if="disableNext">
-      <a class="page-link">Next</a>
-    </li>
-    <li class="page-item" v-if="showNext">
-      <a class="page-link" @click="loadNext">
-        Next
-      </a>
-    </li>
-  </ul>
+
+  <div v-show="isLoading === false">
+    <div class="row row-cols-xxl-6 align-items-center">
+      <div class="col" v-for="person in this.persons">
+        <router-link v-bind:to="`name/${person.imdb_id}`" :key="person.imdb_id" style="text-decoration: none">
+          <div class="card">
+            <img v-if="person.image_url === null" src="../../../static/images/default-person.jpg">
+            <img v-else :src="person.image_url">
+            <div class="card-body" style="color: black">
+              <h5 class="card-title">{{ person.name }}</h5>
+              <p class="year">{{ person.birth_year }}</p>
+            </div>
+          </div>
+        </router-link>
+      </div>
+    </div>
+    <br>
+    <div class="pagination justify-content-center">
+      <li class="page-item previous" v-if="showPrevious">
+        <a class="page-link" @click="loadPrevious">Previous</a>
+      </li>
+      <li class="my_pagination">Current page is {{ this.currentPage }} of {{ this.total_pages }}</li>
+      <li class="page-item next" v-if="showNext">
+        <a class="page-link" @click="loadNext">Next</a>
+      </li>
+    </div>
+  </div>
+
 </template>
 
 <script>
+
+
 export default {
-  name: "PersonForm",
+  name: "PersonsForm",
   data() {
     return {
       persons: [],
-      images: [],
       currentPage: 1,
+      total_pages: null,
       showNext: false,
-      disableNext: false,
       showPrevious: false,
-      disablePrevious: false,
-      previous: false
+      isLoading: false
     }
   },
   async beforeMount() {
@@ -57,39 +58,59 @@ export default {
       this.currentPage += 1
       await this.PersonsList()
     },
-    async loadPrevious(){
+    async loadPrevious() {
       this.currentPage -= 1
       await this.PersonsList()
     },
     async PersonsList() {
-      const response = await fetch('/api/imdb/persons/?page=' + this.currentPage)
+      this.isLoading = true
+      const response = await fetch(`api/imdb/persons/?page=${this.currentPage}`)
       if (response.status === 200) {
         const data = await response.json()
         this.persons = data.results
+        this.total_pages = data.total_pages
         if (data.next) {
           this.showNext = true
-          this.disableNext = false
-        }
-        else {
-          this.disableNext = true
+        } else {
           this.showNext = false
         }
         if (data.previous) {
           this.showPrevious = true
-          this.disablePrevious = false
-        }
-        else {
+        } else {
           this.showPrevious = false
-          this.disablePrevious = true
         }
-        return this.persons
+        this.isLoading = false
       }
     }
   }
 }
-
 </script>
 
 <style scoped>
 
+.spinner-border {
+  margin-top: 100px;
+}
+
+.card {
+  margin: 20px;
+  hight: 250px;
+  width: 220px;
+}
+
+.title {
+  font-size: 50px;
+}
+
+.disabled {
+  background: #cccccc;
+}
+
+.my_pagination {
+  margin: 5px;
+}
+
+.my_pagination li {
+  cursor: pointer;
+}
 </style>

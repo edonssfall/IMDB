@@ -1,5 +1,6 @@
 <script>
 import MovieDetailsForm from "../components/MovieDetailsForm.vue";
+
 export default {
   name: "MovieDetailsView",
   components: {MovieDetailsForm}
@@ -9,7 +10,7 @@ export default {
 <template>
   <title>Movie</title>
   <main>
-    <MovieDetailsForm />
+    <MovieDetailsForm/>
   </main>
 </template>
 

@@ -12,12 +12,6 @@ export const useUserStore = defineStore('user', {
                 if (state.user.first_name === null && state.user.last_name === null) {
                     return state.user.email
                 }
-                if (state.user.first_name === null) {
-                    state.user.first_name = ''
-                }
-                if (state.user.last_name === null) {
-                    state.user.last_name = ''
-                }
                 return `${state.user.first_name} ${state.user.last_name}`
             }
         },
