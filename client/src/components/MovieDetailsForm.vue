@@ -9,7 +9,8 @@
   <div v-show="isLoading === false">
     <div class="block">
       <div class="detail_pic">
-        <img v-if="this.movie.poster_url === null" src="../../../static/images/default-movie.jpg">
+        <img v-if="this.movie.poster_url === null || this.movie.poster_url === ''"
+             src="../../../static/images/default-movie.jpg">
         <img v-else :src="this.movie.poster_url">
       </div>
       <div class="detail_info">
@@ -49,11 +50,13 @@
       </thead>
       <tbody>
       <tr v-for="movi in this.movie.movie_id">
-        <template v-for="nami in movi.person_id">
-          <td scope="row">{{ nami }}</td>
-          <td>{{ movi.job }}</td>
-        </template>
+        <router-link v-bind:to="`/name/${movi.person_id.imdb_id}`" style="text-decoration: none; color: black"
+                     :key="movi.imdb_id">
+          <td scope="row">{{ movi.person_id.name }}</td>
+        </router-link>
+        <td>{{ movi.job }}</td>
       </tr>
+
       </tbody>
     </table>
 
@@ -61,11 +64,12 @@
       <h1>Movies Like This</h1>
       <div class="col" v-for="rec_movie in this.rec_movies">
         <div class="card mb-3">
-          <router-link v-bind:to="`${rec_movie.imdb_id}`" style="text-decoration: none"
+          <router-link v-bind:to="`/title/${rec_movie.imdb_id}`" style="text-decoration: none"
                        :key="rec_movie.imdb_id" @click="RecMovie">
             <div class="row g-0">
               <div class="col-md-4">
-                <img v-if="rec_movie.poster_url === null" src="../../../static/images/default-movie.jpg">
+                <img v-if="rec_movie.poster_url === null || rec_movie.poster_url === ''"
+                     src="../../../static/images/default-movie.jpg">
                 <img v-else :src="rec_movie.poster_url">
               </div>
               <div class="col-md-8">
@@ -175,7 +179,7 @@ export default {
     },
     async MovieDetails() {
       this.isLoading = true
-      const response = await fetch( DjangoAPIHost + `api/imdb/title/${this.$route.params['movie_slug']}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.$route.params['movie_slug']}`)
       if (response.status === 200) {
         this.movie = await response.json()
       }

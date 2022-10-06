@@ -9,8 +9,9 @@
   <div v-show="isLoading === false">
     <div class="block">
       <div class="detail_pic">
-        <img v-if="this.person.image_url === null" src="../../../static/images/default-person.jpg">
-        <img v-else :src="this.person.poster_url">
+        <img v-if="this.person.image_url === null || this.person.image === ''"
+             src="../../../static/images/default-person.jpg">
+        <img v-else :src="this.person.image_url">
       </div>
       <div class="detail_info">
         <div class="label">
@@ -26,27 +27,31 @@
         <h5 v-else>Unknown year</h5>
         <br>
         <br>
-        <h3 v-if="this.person.birth_place">Rating IMDB: {{ this.person.birth_place }}</h3>
+        <h3 v-if="this.person.birth_place">Birth Place: {{ this.person.birth_place }}</h3>
         <h3 v-else>Unknow Birth Place</h3>
       </div>
     </div>
 
     <div class="side_rec">
-      <h1>Persons Like This</h1>
+      <router-link v-bind:to="`/title/${this.title.imdb_id}`" :key="this.title.imdb_id"
+                   style="text-decoration: none; color: black">
+        <h1>Persons in This Movie {{ this.title.name }}</h1>
+      </router-link>
       <div class="col" v-for="rec_person in this.rec_persons">
-        <div class="card mb-3">
-          <router-link v-bind:to="`${rec_person.imdb_id}`" style="text-decoration: none"
-                       :key="rec_person.imdb_id" @click="RecPerson">
+        <div class="card mb-3" v-if="rec_person.person_id.imdb_id !== this.person.imdb_id">
+          <router-link v-bind:to="`/name/${rec_person.person_id.imdb_id}`" style="text-decoration: none"
+                       :key="rec_person.person_id.imdb_id" @click="RecPerson">
             <div class="row g-0">
               <div class="col-md-4">
-                <img v-if="rec_person.image_url === null" src="../../../static/images/default-person.jpg.jpg">
-                <img v-else :src="rec_person.poster_url">
+                <img v-if="rec_person.person_id.image_url === null || rec_person.person_id.image_url === ''"
+                     src="../../../static/images/default-person.jpg">
+                <img v-else :src="rec_person.person_id.image_url">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">{{ rec_person.name }}</h5>
-                  <h3 v-if="rec_person.birth_place">Rating IMDB: {{ rec_person.birth_place }}</h3>
-                  <h3 v-else>Unknow Birth Place</h3>
+                  <h3 class="card-title">{{ rec_person.person_id.name }}</h3>
+                  <h5 v-if="rec_person.birth_place">Rating IMDB: {{ rec_person.birth_place }}</h5>
+                  <h5 v-else>Unknow Birth Place</h5>
                 </div>
               </div>
             </div>
@@ -83,6 +88,12 @@
                 </div>
               </div>
               <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Birth Place</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" v-model="person_data.birth_place">
+                </div>
+              </div>
+              <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">URL</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" v-model="person_data.image_url">
@@ -116,6 +127,7 @@ export default {
   data() {
     return {
       person: [],
+      title: [],
       rec_persons: [],
       error: null,
       isLoading: false,
@@ -131,12 +143,12 @@ export default {
   },
   async beforeMount() {
     await this.PersonDetails()
-
+    await this.PersonsRec()
   },
   methods: {
     async RecPerson() {
       await this.PersonDetails()
-      await this.PersonRec()
+      await this.PersonsRec()
     },
     async PersonDetails() {
       this.isLoading = true
@@ -147,21 +159,27 @@ export default {
       for (const [key, value] of Object.entries(this.person_data)) {
         this.person_data[key] = this.person[key]
       }
+      console.log(this.person)
+    },
+    async PersonsRec() {
+      if (this.person['person_id']['0']) {
+        this.title = this.person['person_id']['0']['movie_id']
+        const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.title['imdb_id']}`)
+        const data = await response.json()
+        this.rec_persons = data['movie_id']
+      }
       this.isLoading = false
     },
-    async PersonRec() {
-      let movie_id = this.person
+    async PersonEdit(e) {
+      e.preventDefault()
 
-      this.isLoading = false
-    },
-    async PersonEdit() {
-      const response = await fetch(DjangoAPIHost + `api/imdb/name/${this.movie.imdb_id}/edit`, {
+      const response = await fetch(DjangoAPIHost + `api/imdb/name/${this.person.imdb_id}/edit/`, {
         method: 'PUT',
         headers: {
           'X-CSRFToken': Cookies.get('csrftoken'),
           'content-type': 'application/json'
         },
-        body: JSON.stringify(this.movie_data)
+        body: JSON.stringify(this.person_data)
       })
       if (response.status !== 201) {
         this.error = await response.json()

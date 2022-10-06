@@ -4,7 +4,7 @@
 
       {{ userStore.getUserName }}
 
-      <RouterLink to="">
+      <RouterLink class="logo" to="/">
         <img @click="logOut" src=../../../../static/images/user_logo.png height="30" width="30">
       </RouterLink>
     </div>
@@ -42,4 +42,10 @@ export default {
 
 <style scoped>
 
+.logo img {
+  width: 30px;
+  margin: 1em auto;
+  background: white;
+  border-radius: 50%;
+}
 </style>

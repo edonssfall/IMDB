@@ -1,7 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAdminUser
-from .serializer import MovieSerializer, Movies, MovieEditSerializer, PersonSerializer
+from .serializer import MovieSerializer, Movies, Persons, MovieEditSerializer, PersonSerializer, PersonEditSerializer
 from .models import Movie, Person
 from django.db.models import Q
 from rest_framework.response import Response
@@ -47,7 +47,7 @@ class PersonAPIList(ListCreateAPIView):
 
 class PersonDetailsAPI(APIView):
 
-    def get(selfself, request, imdb_id):
+    def get(self, request, imdb_id):
         person = Person.objects.get(imdb_id=imdb_id)
         serializer = PersonSerializer(person)
         return Response(serializer.data)
@@ -55,9 +55,8 @@ class PersonDetailsAPI(APIView):
 
 class PersonEditAPI(RetrieveUpdateDestroyAPIView):
     queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+    serializer_class = PersonEditSerializer
     lookup_field = 'imdb_id'
-    permission_classes = [IsAdminUser]
 
 
 class PersonRecAPI(ListAPIView):

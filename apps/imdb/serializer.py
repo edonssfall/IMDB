@@ -23,7 +23,12 @@ class Movies(serializers.ModelSerializer):
 class Persons(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['name']
+        fields = [
+            'name',
+            'imdb_id',
+            'image_url',
+            'birth_place'
+        ]
 
 
 class PersonsMovie(serializers.ModelSerializer):
@@ -72,3 +77,16 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = '__all__'
+
+
+class PersonEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Person
+        fields = [
+            'name',
+            'birth_year',
+            'death_year',
+            'birth_place',
+            'image_url'
+        ]

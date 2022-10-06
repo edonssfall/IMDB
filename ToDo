@@ -5,14 +5,16 @@
 -DONE to css movie list
 -DONE Persons list
 -DONE person details
--from persons recommended person from one film
--person edit
--from movies to person links
--white circle after user logo
+-DONE from persons recommended person from one film
+-DONE person edit
+-DONE from movies to person links
+-DONE white circle after user logo
+-DONE Parse person
 -to css login and register
--to css home page
+-50/50 to css home page
 -social auth
--throttling shield
+-DONE throttling shield
+-write tests for api
 -deploy
 
 -search field

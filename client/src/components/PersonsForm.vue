@@ -11,7 +11,7 @@
       <div class="col" v-for="person in this.persons">
         <router-link v-bind:to="`name/${person.imdb_id}`" :key="person.imdb_id" style="text-decoration: none">
           <div class="card">
-            <img v-if="person.image_url === null" src="../../../static/images/default-person.jpg">
+            <img v-if="person.image_url === null || person.image_url === ''" src="../../../static/images/default-person.jpg">
             <img v-else :src="person.image_url">
             <div class="card-body" style="color: black">
               <h5 class="card-title">{{ person.name }}</h5>
