@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'rest_framework_simplejwt',
-    'django_filters',
     'oauth2_provider',
     'social_django',
     'drf_social_oauth2'

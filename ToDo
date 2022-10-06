@@ -12,12 +12,13 @@
 -DONE Parse person
 -to css login and register
 -50/50 to css home page
--social auth
 -DONE throttling shield
--write tests for api
 -deploy
 
+-FastAPI
 -search field
+-social auth
+-write tests for api
 -filter for movies
  *link on filter from movie
 -filter for persons

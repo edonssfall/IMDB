@@ -9,7 +9,7 @@
   <div v-show="isLoading === false">
     <div class="row row-cols-xxl-6 align-items-center">
       <div class="col" v-for="movie in this.movies">
-        <router-link v-bind:to="`title/${movie.imdb_id}`" :key="movie.imdb_id" style="text-decoration: none">
+        <router-link v-bind:to="`/title/${movie.imdb_id}`" :key="movie.imdb_id" style="text-decoration: none">
           <div class="card">
             <img v-if="movie.poster_url === null || movie.poster_url === ''" src="../../../static/images/default-movie.jpg">
             <img v-else :src="movie.poster_url">

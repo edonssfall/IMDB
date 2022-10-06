@@ -28,14 +28,16 @@
         <br>
         <br>
         <h3 v-if="this.person.birth_place">Birth Place: {{ this.person.birth_place }}</h3>
-        <h3 v-else>Unknow Birth Place</h3>
+        <h3 v-else>Unknown Birth Place</h3>
       </div>
     </div>
 
     <div class="side_rec">
       <router-link v-bind:to="`/title/${this.title.imdb_id}`" :key="this.title.imdb_id"
                    style="text-decoration: none; color: black">
-        <h1>Persons in This Movie {{ this.title.name }}</h1>
+        <h1>Persons in This Movie:
+          <br>
+          {{ this.title.name }}</h1>
       </router-link>
       <div class="col" v-for="rec_person in this.rec_persons">
         <div class="card mb-3" v-if="rec_person.person_id.imdb_id !== this.person.imdb_id">
@@ -51,7 +53,7 @@
                 <div class="card-body">
                   <h3 class="card-title">{{ rec_person.person_id.name }}</h3>
                   <h5 v-if="rec_person.birth_place">Rating IMDB: {{ rec_person.birth_place }}</h5>
-                  <h5 v-else>Unknow Birth Place</h5>
+                  <h5 v-else>Unknown Birth Place</h5>
                 </div>
               </div>
             </div>
@@ -230,7 +232,7 @@ export default {
   float: right;
   margin-right: 50px;
   margin-top: 60px;
-  width: 350px;
+  width: 450px;
   height: 550px;
 }
 

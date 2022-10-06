@@ -27,9 +27,7 @@
         </template>
         <template v-for="movi in this.movie.movie_id">
           <template v-if="movi.job === 'director'">
-            <template v-for="directors in movi.person_id">
-              <h5 class="director">{{ directors }}</h5>
-            </template>
+              <h5 class="director">{{ movi.person_id.name }}</h5>
           </template>
         </template>
         <h5 v-if="this.movie.year" class="year">{{ this.movie.year }}</h5>
@@ -140,16 +138,14 @@
 import {useUserStore} from "../stores/user";
 import Cookies from 'js-cookie';
 import {ref} from "vue";
-import {useMovieStore} from "../stores/movie";
 import {DjangoAPIHost} from "../global"
 
 export default {
   name: "MovieDetailsForm",
   setup() {
     const userStore = ref(useUserStore())
-    const movieStore = ref(useMovieStore())
     return {
-      userStore, movieStore
+      userStore
     }
   },
   data() {
@@ -158,6 +154,7 @@ export default {
       rec_movies: [],
       error: null,
       isLoading: false,
+      movie_slug: null,
       movie_data: {
         rating_imdb: null,
         imdb_id: null,
@@ -174,12 +171,14 @@ export default {
   },
   methods: {
     async RecMovie() {
+      this.movie_slug = this.$route.params['movie_slug']
       await this.MovieDetails()
       await this.MovieRec()
     },
     async MovieDetails() {
       this.isLoading = true
-      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.$route.params['movie_slug']}`)
+      this.movie_slug = this.$route.params['movie_slug']
+      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.movie_slug}`)
       if (response.status === 200) {
         this.movie = await response.json()
       }

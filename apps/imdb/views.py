@@ -1,7 +1,7 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAdminUser
-from .serializer import MovieSerializer, Movies, Persons, MovieEditSerializer, PersonSerializer, PersonEditSerializer
+from .serializer import MovieSerializer, Movies, MovieEditSerializer, PersonSerializer, PersonEditSerializer
 from .models import Movie, Person
 from django.db.models import Q
 from rest_framework.response import Response
