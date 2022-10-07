@@ -1,0 +1,43 @@
+version: "3.3"
+services:
+  redis:
+    image: redis
+
+  client:
+    image: node:18
+    volumes:
+      - ./client:/src
+    command: /bin/bash -c "cd /src/; npm i; npm run dev"
+
+  postgres-db:
+    image: postgres
+    env_file: envs/db.env
+    volumes:
+      - pgdata:/var/lib/postgresql/pgdata/
+
+  web:
+    build: .
+    image: edonssfall/imdb
+    links:
+      - postgres-db:db
+      - redis:redis
+    volumes:
+      - .:/src
+      - ./static:/static
+    env_file:
+      - envs/db.env
+      - envs/prod.env
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/static:ro
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+
+volumes:
+  pgdata: {}
+  static: {}
