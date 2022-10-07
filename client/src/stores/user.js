@@ -31,13 +31,12 @@ export const useUserStore = defineStore('user', {
         },
         async fetchUser() {
             const response = await apiFetch(
-                DjangoAPIHost + '/api/auth/current-user/',
+                DjangoAPIHost + 'api/auth/current-user/',
                 {method: 'GET'}
             )
             if (response.status === 200) {
                 this.user = await response.json()
             }
-            return
         }
     }
 })
