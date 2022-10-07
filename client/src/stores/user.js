@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import {apiFetch} from "../utils/api";
+import {DjangoAPIHost} from "../constance";
 
 export const useUserStore = defineStore('user', {
     state: () => {
@@ -30,7 +31,7 @@ export const useUserStore = defineStore('user', {
         },
         async fetchUser() {
             const response = await apiFetch(
-                '/api/auth/current-user/',
+                DjangoAPIHost + '/api/auth/current-user/',
                 {method: 'GET'}
             )
             if (response.status === 200) {

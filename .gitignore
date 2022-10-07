@@ -7,12 +7,14 @@ dev.py
 *.log
 *.pot
 *.pyc
+db.json
 __pycache__
 db.sqlite3
 media
 
 # Backup files #
 *.bak
+.circleci
 
 # If you are using PyCharm #
 # User-specific stuff
