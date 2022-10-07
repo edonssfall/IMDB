@@ -138,7 +138,7 @@
 import {useUserStore} from "../stores/user";
 import Cookies from 'js-cookie';
 import {ref} from "vue";
-import {DjangoAPIHost} from "../global"
+import {DjangoAPIHost} from "../constance"
 
 export default {
   name: "MovieDetailsForm",
@@ -154,7 +154,7 @@ export default {
       rec_movies: [],
       error: null,
       isLoading: false,
-      movie_slug: null,
+      movie_slug: this.$route.params['movie_slug'],
       movie_data: {
         rating_imdb: null,
         imdb_id: null,
@@ -177,7 +177,6 @@ export default {
     },
     async MovieDetails() {
       this.isLoading = true
-      this.movie_slug = this.$route.params['movie_slug']
       const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.movie_slug}`)
       if (response.status === 200) {
         this.movie = await response.json()

@@ -44,7 +44,7 @@
 <script>
 import {useUserStore} from "../stores/user";
 import {apiFetch} from "../utils/api"
-import {DjangoAPIHost} from "../global";
+import {DjangoAPIHost} from "../constance";
 
 export default {
   name: "RegisterForm",

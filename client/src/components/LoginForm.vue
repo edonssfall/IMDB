@@ -4,14 +4,14 @@
     <div class="mb-3 row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
-        <input type="email" class="form-control" placeholder="email" v-model="data.email" required="required">
+        <input type="email" class="form-control" v-model="data.email" required="required">
         {{ error.email }}
       </div>
     </div>
     <div class="mb-3 row">
       <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" placeholder="password" v-model="data.password" required="required">
+        <input type="password" class="form-control" v-model="data.password" required="required">
         {{ error.password }}
       </div>
     </div>
@@ -36,7 +36,7 @@
 <script>
 import {useUserStore} from "../stores/user";
 import {apiFetch} from "../utils/api"
-import {DjangoAPIHost} from "../global";
+import {DjangoAPIHost} from "../constance";
 
 export default {
   name: "LoginForm",
@@ -54,7 +54,7 @@ export default {
       e.preventDefault()
       e.stopPropagation()
 
-      const response = await apiFetch(DjangoAPIHost + '/api/auth/login/',
+      const response = await apiFetch(DjangoAPIHost + 'api/auth/login/',
           {
             method: 'POST',
             body: JSON.stringify(this.data)

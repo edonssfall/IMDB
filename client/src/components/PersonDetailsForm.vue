@@ -116,7 +116,7 @@
 import {useUserStore} from "../stores/user";
 import Cookies from 'js-cookie';
 import {ref} from "vue";
-import {DjangoAPIHost} from "../global";
+import {DjangoAPIHost} from "../constance";
 
 export default {
   name: "PersonDetailsForm",

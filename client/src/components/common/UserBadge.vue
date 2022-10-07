@@ -9,7 +9,7 @@
       </RouterLink>
     </div>
     <div v-else>
-      <RouterLink to="login" style="text-decoration: none; color: white">
+      <RouterLink to="/login" style="text-decoration: none; color: white">
         Log In
       </RouterLink>
     </div>

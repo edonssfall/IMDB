@@ -46,7 +46,7 @@
 <script>
 
 
-import {DjangoAPIHost} from "../global";
+import {DjangoAPIHost} from "../constance";
 
 export default {
   name: "MoviesForm",

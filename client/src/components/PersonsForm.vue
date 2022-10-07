@@ -38,6 +38,8 @@
 <script>
 
 
+import {DjangoAPIHost} from "../constance";
+
 export default {
   name: "PersonsForm",
   data() {
@@ -64,7 +66,7 @@ export default {
     },
     async PersonsList() {
       this.isLoading = true
-      const response = await fetch(`api/imdb/persons/?page=${this.currentPage}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/persons/?page=${this.currentPage}`)
       if (response.status === 200) {
         const data = await response.json()
         this.persons = data.results
@@ -94,7 +96,6 @@ export default {
 
 .card {
   margin: 20px;
-  hight: 250px;
   width: 220px;
 }
 

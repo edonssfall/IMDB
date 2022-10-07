@@ -2,9 +2,6 @@
   <div class="back_ground">
     <img src="../../../static/images/home_page.jpg">
   </div>
-  <div class="text-center">
-    My First Site!!
-  </div>
 </template>
 
 <script>

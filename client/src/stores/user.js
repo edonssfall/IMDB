@@ -36,6 +36,7 @@ export const useUserStore = defineStore('user', {
             if (response.status === 200) {
                 this.user = await response.json()
             }
+            return
         }
     }
 })
