@@ -8,12 +8,16 @@ services:
     volumes:
       - ./client:/src
     command: /bin/bash -c "cd /src/; npm i; npm run dev"
+    ports:
+      - 5137:5137
 
   postgres-db:
     image: postgres
     env_file: envs/db.env
     volumes:
       - pgdata:/var/lib/postgresql/pgdata/
+    ports:
+      - 5432:5432
 
   web:
     build: .
