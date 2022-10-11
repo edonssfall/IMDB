@@ -54,6 +54,7 @@ class MovieSerializer(serializers.ModelSerializer):
             'poster_url',
             'rank',
             'movie_id',
+            'get_absolute_url'
         ]
 
 

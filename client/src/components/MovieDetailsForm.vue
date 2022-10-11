@@ -27,7 +27,7 @@
         </template>
         <template v-for="movi in this.movie.movie_id">
           <template v-if="movi.job === 'director'">
-              <h5 class="director">{{ movi.person_id.name }}</h5>
+            <h5 class="director">{{ movi.person_id.name }}</h5>
           </template>
         </template>
         <h5 v-if="this.movie.year" class="year">{{ this.movie.year }}</h5>
@@ -61,9 +61,10 @@
     <div class="side_rec">
       <h1>Movies Like This</h1>
       <div class="col" v-for="rec_movie in this.rec_movies">
-        <div class="card mb-3">
-          <router-link v-bind:to="`/title/${rec_movie.imdb_id}`" style="text-decoration: none"
-                       :key="rec_movie.imdb_id" @click="RecMovie">
+        <router-link v-bind:to="`/title/${rec_movie.imdb_id}`" style="text-decoration: none"
+                     :key="`${rec_movie.imdb_id}`"
+                     @click="RecMovie(rec_movie.imdb_id)">
+          <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4">
                 <img v-if="rec_movie.poster_url === null || rec_movie.poster_url === ''"
@@ -79,8 +80,8 @@
                 </div>
               </div>
             </div>
-          </router-link>
-        </div>
+          </div>
+        </router-link>
       </div>
     </div>
 
@@ -152,7 +153,6 @@ export default {
     return {
       movie: [],
       rec_movies: [],
-      error: null,
       isLoading: false,
       movie_slug: this.$route.params['movie_slug'],
       movie_data: {
@@ -163,21 +163,21 @@ export default {
         poster_url: null,
         rank: null
       },
+      next_movie: null
     }
   },
   async beforeMount() {
-    await this.MovieDetails()
+    await this.MovieDetails(this.movie_slug)
     await this.MovieRec()
   },
   methods: {
-    async RecMovie() {
-      this.movie_slug = this.$route.params['movie_slug']
-      await this.MovieDetails()
+    async RecMovie(movie_slug) {
+      await this.MovieDetails(movie_slug)
       await this.MovieRec()
     },
-    async MovieDetails() {
+    async MovieDetails(movie_slug) {
       this.isLoading = true
-      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.movie_slug}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/title/${movie_slug}`)
       if (response.status === 200) {
         this.movie = await response.json()
       }
@@ -199,7 +199,7 @@ export default {
       this.isLoading = false
     },
     async MovieEdit() {
-      const response = await fetch(DjangoAPIHost + `api/imdb/title/${this.movie.imdb_id}/edit`, {
+      await fetch(DjangoAPIHost + `api/imdb/title/${this.movie.imdb_id}/edit`, {
         method: 'PUT',
         headers: {
           'X-CSRFToken': Cookies.get('csrftoken'),
@@ -207,9 +207,6 @@ export default {
         },
         body: JSON.stringify(this.movie_data)
       })
-      if (response.status !== 201) {
-        this.error = await response.json()
-      }
     }
   }
 }

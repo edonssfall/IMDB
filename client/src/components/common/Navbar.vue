@@ -29,4 +29,7 @@ export default {
 
 <style scoped>
 
+.navbar {
+  height: 78px;
+}
 </style>

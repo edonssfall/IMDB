@@ -21,6 +21,9 @@ class Movie(models.Model):
     rating_imdb = models.DecimalField(_('Rating'), null=True, blank=True, max_digits=3, decimal_places=2)
     rank = models.IntegerField(_('Rank'), null=True, blank=True)
 
+    def get_absolute_url(self):
+        return f"title/{self.imdb_id}"
+
     def __str__(self):
         return self.imdb_id
 

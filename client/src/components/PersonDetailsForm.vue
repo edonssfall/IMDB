@@ -42,7 +42,7 @@
       <div class="col" v-for="rec_person in this.rec_persons">
         <div class="card mb-3" v-if="rec_person.person_id.imdb_id !== this.person.imdb_id">
           <router-link v-bind:to="`/name/${rec_person.person_id.imdb_id}`" style="text-decoration: none"
-                       :key="rec_person.person_id.imdb_id" @click="RecPerson">
+                       :key="rec_person.person_id.imdb_id" @click="RecPerson(rec_person.person_id.imdb_id)">
             <div class="row g-0">
               <div class="col-md-4">
                 <img v-if="rec_person.person_id.image_url === null || rec_person.person_id.image_url === ''"
@@ -131,8 +131,8 @@ export default {
       person: [],
       title: [],
       rec_persons: [],
-      error: null,
       isLoading: false,
+      person_slug: this.$route.params['person_slug'],
       person_data: {
         imdb_id: null,
         name: null,
@@ -144,24 +144,23 @@ export default {
     }
   },
   async beforeMount() {
-    await this.PersonDetails()
+    await this.PersonDetails(this.person_slug)
     await this.PersonsRec()
   },
   methods: {
-    async RecPerson() {
-      await this.PersonDetails()
+    async RecPerson(person_slug) {
+      await this.PersonDetails(person_slug)
       await this.PersonsRec()
     },
-    async PersonDetails() {
+    async PersonDetails(person_slug) {
       this.isLoading = true
-      const response = await fetch(DjangoAPIHost + `api/imdb/name/${this.$route.params['person_slug']}`)
+      const response = await fetch(DjangoAPIHost + `api/imdb/name/${person_slug}`)
       if (response.status === 200) {
         this.person = await response.json()
       }
       for (const [key, value] of Object.entries(this.person_data)) {
         this.person_data[key] = this.person[key]
       }
-      console.log(this.person)
     },
     async PersonsRec() {
       if (this.person['person_id']['0']) {
@@ -175,7 +174,7 @@ export default {
     async PersonEdit(e) {
       e.preventDefault()
 
-      const response = await fetch(DjangoAPIHost + `api/imdb/name/${this.person.imdb_id}/edit/`, {
+      await fetch(DjangoAPIHost + `api/imdb/name/${this.person.imdb_id}/edit/`, {
         method: 'PUT',
         headers: {
           'X-CSRFToken': Cookies.get('csrftoken'),
@@ -183,9 +182,6 @@ export default {
         },
         body: JSON.stringify(this.person_data)
       })
-      if (response.status !== 201) {
-        this.error = await response.json()
-      }
     }
   }
 }
