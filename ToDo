@@ -1,7 +1,7 @@
 -DONE Put method to edit movie
 -DONE CSRFtoken add to headers Edit
 -DONE isLoading on full page
--50/50 go to rec movies?
+-DONE go to rec movies
 -DONE to css movie list
 -DONE Persons list
 -DONE person details
@@ -11,10 +11,12 @@
 -DONE white circle after user logo
 -DONE Parse person
 -to css login and register
--50/50 to css home page
+-DONE to css home page
 -DONE throttling shield
--deploy
+-DONE deploy
 
+-DONE 404 page
+-DONE envs Examples
 -FastAPI
 -search field
 -social auth

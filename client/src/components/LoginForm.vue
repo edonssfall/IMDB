@@ -1,6 +1,8 @@
 <template>
   <form @submit="loginUser">
-    <center>{{ error.detail }}</center>
+    <div class="alert alert-danger" v-if="error.detail" role="alert">
+      {{ error.detail }}
+    </div>
     <div class="mb-3 row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
@@ -16,7 +18,7 @@
       </div>
     </div>
     <div class="header">
-      <a class="lines" href="/register">Register</a>
+      <router-link class="lines" to="/register">Register</router-link>
       <a class="lines" href="#">Forgot Password!?</a>
       <button type="submit" class="btn btn-primary">Log in</button>
     </div>
@@ -26,9 +28,9 @@
       </h4>
     </div>
     <div class="society2">
-      <img src=../../../static/images/facebook_logo.png height="100" width="100">
-      <img src=../../../static/images/google_logo.png height="100" width="100">
-      <img src=../../../static/images/twitter_logo.png height="100" width="100">
+      <img src=../../../static/images/facebook_logo.png>
+      <img src=../../../static/images/google_logo.png>
+      <img src=../../../static/images/twitter_logo.png>
     </div>
   </form>
 </template>
@@ -63,7 +65,6 @@ export default {
 
       if (response.status !== 200) {
         this.error = await response.json()
-        console.log(this.error(data.email))
         return
       } else {
         const data = await response.json()
@@ -111,5 +112,7 @@ form {
 .society2 img {
   display: inline-block;
   padding: 10px;
+  height: 80px;
+  width: 80px;
 }
 </style>

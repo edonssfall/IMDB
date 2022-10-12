@@ -6,6 +6,7 @@ import PersonsView from "../views/PersonsView.vue";
 import HomeView from "../views/HomeView.vue";
 import MovieDetailsView from "../views/MovieDetailsView.vue";
 import PersonDetailsView from "../views/PersonDetailsView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
             path: '/name/:person_slug',
             name: 'person_details',
             component: PersonDetailsView
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: '404_Page',
+            component: NotFoundView
         }
     ]
 })

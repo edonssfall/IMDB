@@ -1,9 +1,7 @@
 <template>
 
   <div v-show="isLoading" class="text-center">
-    <div class="spinner-border" role="status">
-    </div>
-    <h3>Loading...</h3>
+    <LoadingView />
   </div>
 
   <div v-show="isLoading === false">
@@ -117,9 +115,11 @@ import {useUserStore} from "../stores/user";
 import Cookies from 'js-cookie';
 import {ref} from "vue";
 import {DjangoAPIHost} from "../constance";
+import LoadingView from "../views/LoadingView.vue";
 
 export default {
   name: "PersonDetailsForm",
+  components: {LoadingView},
   setup() {
     const userStore = ref(useUserStore())
     return {
@@ -189,10 +189,6 @@ export default {
 </script>
 
 <style scoped>
-
-.spinner-border {
-  margin-top: 100px;
-}
 
 .label img {
   width: 40px;
