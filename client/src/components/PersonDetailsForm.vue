@@ -8,13 +8,13 @@
     <div class="block">
       <div class="detail_pic">
         <img v-if="this.person.image_url === null || this.person.image === ''"
-             src="../../../static/images/default-person.jpg">
+             src="../assets/default-person.jpg">
         <img v-else :src="this.person.image_url">
       </div>
       <div class="detail_info">
         <div class="label">
           <h2>{{ this.person.name }}</h2>
-          <img v-if="userStore.UserIsStaff" src="../../../static/images/edit_logo.png"
+          <img v-if="userStore.UserIsStaff" src="../assets/edit_logo.png"
                data-bs-toggle="modal" data-bs-target="#exampleModal">
         </div>
 
@@ -44,7 +44,7 @@
             <div class="row g-0">
               <div class="col-md-4">
                 <img v-if="rec_person.person_id.image_url === null || rec_person.person_id.image_url === ''"
-                     src="../../../static/images/default-person.jpg">
+                     src="../assets/default-person.jpg">
                 <img v-else :src="rec_person.person_id.image_url">
               </div>
               <div class="col-md-8">

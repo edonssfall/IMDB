@@ -6,7 +6,7 @@
   <title>Home</title>
   <main>
     <div class="back_ground">
-      <img src="../../../static/images/home_page.jpg">
+      <img src="../assets/home_page.jpg">
     </div>
   </main>
 </template>

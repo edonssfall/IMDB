@@ -18,6 +18,7 @@
 -DONE 404 page
 -DONE envs Examples
 -FastAPI
+-circle
 -search field
 -social auth
 -write tests for api

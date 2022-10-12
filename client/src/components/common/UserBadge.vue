@@ -5,7 +5,7 @@
       {{ userStore.getUserName }}
 
       <RouterLink class="logo" to="/">
-        <img @click="logOut" src=../../../../static/images/user_logo.png height="30" width="30">
+        <img @click="logOut" src=../../assets/user_logo.png height="30" width="30">
       </RouterLink>
     </div>
     <div v-else>

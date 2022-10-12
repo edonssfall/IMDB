@@ -28,9 +28,9 @@
       </h4>
     </div>
     <div class="society2">
-      <img src=../../../static/images/facebook_logo.png>
-      <img src=../../../static/images/google_logo.png>
-      <img src=../../../static/images/twitter_logo.png>
+      <img src=../assets/facebook_logo.png>
+      <img src=../assets/google_logo.png>
+      <img src=../assets/twitter_logo.png>
     </div>
   </form>
 </template>
