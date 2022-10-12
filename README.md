@@ -10,9 +10,9 @@ This is my first Web Project Based on Django and Vue
 * PostgreSQL
 * Docker
 * Django REST framework
-* .[![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* .[![Vue][Vue.js]][Vue-url]
-* .[![Pinia][Pinia.Vue.js][Pinia-url]]
+* Bootstrap
+* Vue.js
+* Pinia
 * JavaScript
 
 ## Quick Start
@@ -26,13 +26,9 @@ git clone https://github.com/edonssfall/IMDB.git
 ```python
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'DB Name',
         'USER': 'DB User',
-        'PASSWORD': 'DB Password',
-        'HOST': 'db',
-        'PORT': '5432',
-        'ATOMIC_REQUESTS': True
+        'PASSWORD': 'DB Password'
     }
 }
 
