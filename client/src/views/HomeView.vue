@@ -1,19 +1,26 @@
 <script>
-import Homeform from "../components/Homeform.vue";
 
-export default {
-  name: "HomeView",
-  components: {Homeform}
-}
 </script>
 
 <template>
   <title>Home</title>
   <main>
-    <Homeform/>
+    <div class="back_ground">
+      <img src="../../../static/images/home_page.jpg">
+    </div>
   </main>
 </template>
 
-<style scoped>
+<style lang="scss">
+
+.back_ground img {
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 910px;
+  left: 0;
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+}
 
 </style>
