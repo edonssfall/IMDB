@@ -1,6 +1,7 @@
 # Django #
 API_keyes.py
 dev.py
+data.tsv
 /imdb2000-main
 .vscode
 .idea
