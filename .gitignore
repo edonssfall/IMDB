@@ -1,18 +1,12 @@
 # Django #
-API_keyes.py
-dev.py
-data.tsv
-/imdb2000-main
 .vscode
 .idea
 *.log
 *.pot
 *.pyc
-db.json
 __pycache__
 db.sqlite3
-media
-API_keys.py
+
 
 # Backup files #
 *.bak
@@ -146,8 +140,12 @@ GitHub.sublime-settings
 .history
 
 # Secret
-../../IMDB/config/settings/dev.py
-config/settings/prod.py
+dev.py
+prod.py
+API_keys.py
+db.json
+data.tsv
+/imdb2000-main
 
 *.env
 /envs

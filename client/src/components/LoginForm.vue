@@ -4,16 +4,14 @@
       {{ error.detail }}
     </div>
     <div class="mb-3 row">
-      <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
-        <input type="email" class="form-control" v-model="data.email" required="required">
+        <input type="email" class="form-control" v-model="data.email" required="required" placeholder="E-mail">
         {{ error.email }}
       </div>
     </div>
     <div class="mb-3 row">
-      <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10">
-        <input type="password" class="form-control" v-model="data.password" required="required">
+        <input type="password" class="form-control" v-model="data.password" required="required" placeholder="Password">
         {{ error.password }}
       </div>
     </div>
@@ -78,6 +76,7 @@ export default {
 </script>
 
 <style scoped>
+
 form {
   position: fixed;
   top: 38%;
@@ -99,7 +98,7 @@ form {
 }
 
 .mb-3 {
-  margin-right: 10px;
+  margin-left: 50px;
 }
 
 .society2 {

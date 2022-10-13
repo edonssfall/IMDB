@@ -5,7 +5,7 @@
     </div>
 
     <div v-show="isLoading === false">
-      <div class="row row-cols-xxl-6 align-items-center">
+      <div class="row row-cols">
         <div class="col" v-for="movie in this.movies">
           <router-link v-bind:to="`/title/${movie.imdb_id}`" :key="movie.imdb_id" style="text-decoration: none">
             <div class="card">
@@ -102,9 +102,17 @@ export default {
 .container {
   width: 1920px;
 }
+.container {
+  padding: 0 1px;
+}
+
+.row-cols-xxl-6 {
+  padding: 0;
+  margin: 0;
+}
 
 .card {
-  height: 481px;
+  height: 480px;
   width: 220px;
 }
 
@@ -116,6 +124,11 @@ export default {
 .col {
   margin: 20px;
   padding: 0;
+}
+
+.col a {
+  height: 480px;
+  width: 220px;
 }
 
 .title {

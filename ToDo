@@ -17,6 +17,7 @@
 
 -DONE 404 page
 -DONE envs Examples
+-DONE npm build
 -FastAPI
 -circle
 -search field

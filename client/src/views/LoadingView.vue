@@ -13,6 +13,7 @@ export default {
 <style scoped>
 
 .spinner-border {
+  margin-top: 200px;
   text-align: center;
 }
 

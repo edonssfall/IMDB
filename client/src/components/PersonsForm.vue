@@ -5,7 +5,7 @@
     </div>
 
     <div v-show="isLoading === false">
-      <div class="row row-cols-lg-6 align-items-center">
+      <div class="row row-cols">
         <div class="col" v-for="person in this.persons">
           <router-link v-bind:to="`name/${person.imdb_id}`" :key="person.imdb_id" style="text-decoration: none">
             <div class="card">

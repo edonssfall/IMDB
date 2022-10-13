@@ -13,6 +13,7 @@ export default {
 <style scoped>
 
 .image {
+  margin-top: 200px;
   text-align: center;
 }
 
