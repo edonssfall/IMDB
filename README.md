@@ -1,7 +1,9 @@
 # IMDB
 
 ## About the Project
+![](https://github.com/edonssfall/IMDB/blob/main/gif-presentation.gif)
 This is my first Web Project Based on Django and Vue
+
 
 
 ### Used Technologies
