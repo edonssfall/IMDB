@@ -12,9 +12,14 @@
             </router-link>
           </li>
         </ul>
+      </div>
+        <form class="collapse navbar-collapse d-lg-flex justify-content-center" role="search" method="get" action="/search">
+          <input class="form-control me-2" type="search" placeholder="What are you looking at?" aria-label="Search"
+                 name="query">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <UserBadge/>
       </div>
-    </div>
   </nav>
 </template>
 
@@ -29,6 +34,10 @@ export default {
 
 <style scoped>
 
+form {
+  margin-right: 50px;
+  max-width: 400px;
+}
 .navbar {
   height: 78px;
 }

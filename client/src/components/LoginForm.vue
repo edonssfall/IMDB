@@ -101,6 +101,10 @@ form {
   margin-left: 50px;
 }
 
+.society {
+  margin-left: 40px;
+}
+
 .society2 {
   display: flex;
   justify-content: space-around;

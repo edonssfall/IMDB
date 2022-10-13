@@ -5,6 +5,7 @@ from .serializer import MovieSerializer, Movies, MovieEditSerializer, PersonSeri
 from .models import Movie, Person
 from django.db.models import Q
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 class MovieAPIList(ListCreateAPIView):
@@ -67,3 +68,14 @@ class PersonRecAPI(ListAPIView):
         name = self.request.GET.get('name', '')
         movie = Movie.objects.get(imdb_id=imdb_id)
         return movie.person_id
+
+
+@api_view(['POST'])
+def search_api(request):
+    query = request.data.get('query', '')
+    if query:
+        movies = Movie.objects.filter(name__contains=query)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({'movies': []})

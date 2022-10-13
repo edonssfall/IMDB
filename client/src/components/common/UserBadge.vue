@@ -1,9 +1,7 @@
 <template>
   <div>
     <div v-if="userStore.user" style="color: white">
-
       {{ userStore.getUserName }}
-
       <RouterLink class="logo" to="/">
         <img @click="logOut" src=../../assets/user_logo.png height="30" width="30">
       </RouterLink>

@@ -19,11 +19,13 @@
 -DONE envs Examples
 -DONE npm build
 -FastAPI
--circle
--search field
+-circleCi
+-DONE search field
 -social auth
 -write tests for api
 -filter for movies
  *link on filter from movie
 -filter for persons
+-sorting
 -dynamic pagination
+-verify email

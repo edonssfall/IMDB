@@ -7,6 +7,7 @@ import HomeView from "../views/HomeView.vue";
 import MovieDetailsView from "../views/MovieDetailsView.vue";
 import PersonDetailsView from "../views/PersonDetailsView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import SearchView from "../views/SearchView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             name: '404_Page',
             component: NotFoundView
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: SearchView
         }
     ]
 })

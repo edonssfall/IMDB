@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import MovieAPIList, MovieDetailsAPI, MoviesRecAPI, MovieEditAPI, PersonAPIList, PersonDetailsAPI, \
-    PersonRecAPI, PersonEditAPI
+    PersonRecAPI, PersonEditAPI, search_api
 
 app_name = 'apps.imdb'
 
 urlpatterns = [
     path('movies/', MovieAPIList.as_view(),),
+    path('movies/search', search_api),
     path('title/<slug:imdb_id>/', MovieDetailsAPI.as_view()),
     path('title/<slug:imdb_id>/edit/', MovieEditAPI.as_view()),
     path('titles/', MoviesRecAPI.as_view()),
