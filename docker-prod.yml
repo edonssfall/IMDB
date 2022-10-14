@@ -8,8 +8,6 @@ services:
     volumes:
       - ./client:/src
     command: /bin/bash -c "cd /src/; npm i; npm run build"
-    ports:
-      - 5137:5137
 
   postgres-db:
     image: postgres
@@ -46,9 +44,9 @@ services:
     ports:
       - 80:80
     environment:
-      - VIRTUAL_HOST=34.229.166.218
-      - LETSENCRYPT_HOST=34.229.166.218
-      - LETSENCRYPT_EMAIL=contact@34.229.166.218
+      - VIRTUAL_HOST=35.195.157.217
+      - LETSENCRYPT_HOST=35.195.157.217
+      - LETSENCRYPT_EMAIL=contact@35.195.157.217
       - VIRTUAL_PORT=80
 
 volumes:
