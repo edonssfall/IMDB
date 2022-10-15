@@ -22,10 +22,15 @@
 -circleCi
 -DONE search field
 -social auth
+-SSL
 -write tests for api
+-prospector
 -filter for movies
  *link on filter from movie
 -filter for persons
 -sorting
 -dynamic pagination
+-Profile with image and favorites
 -verify email
+-Parsing someone
+-Remake all visual

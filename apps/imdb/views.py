@@ -74,7 +74,7 @@ class PersonRecAPI(ListAPIView):
 def search_api(request):
     query = request.data.get('query', '')
     if query:
-        movies = Movie.objects.filter(name__contains=query)
+        movies = Movie.objects.filter(name__icontains=query)
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data)
     else:
