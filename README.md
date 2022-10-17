@@ -3,6 +3,7 @@
 ## About the Project
 ![](https://github.com/edonssfall/IMDB/blob/main/gif-presentation.gif)
 This is my first Web Project Based on Django and Vue
+Realized Redirect from IP Adress to Domain
 https://ithillel-leonid.ogir-ok.com/
 
 
