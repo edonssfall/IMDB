@@ -18,11 +18,11 @@
 -DONE 404 page
 -DONE envs Examples
 -DONE npm build
+-DONE SSL
 -FastAPI
 -circleCi
 -DONE search field
 -social auth
--SSL
 -write tests for api
 -prospector
 -filter for movies

@@ -3,7 +3,7 @@
 ## About the Project
 ![](https://github.com/edonssfall/IMDB/blob/main/gif-presentation.gif)
 This is my first Web Project Based on Django and Vue
-http://34.116.156.45/
+https://ithillel-leonid.ogir-ok.com/
 
 
 
@@ -17,6 +17,7 @@ http://34.116.156.45/
 * Vue.js
 * Pinia
 * JavaScript
+* SSL Certificate
 
 ## Quick Start
 
