@@ -150,3 +150,4 @@ data.tsv
 *.env
 /envs
 /static
+/config/ssl
