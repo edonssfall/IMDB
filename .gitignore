@@ -10,7 +10,6 @@ db.sqlite3
 
 # Backup files #
 *.bak
-.circleci
 
 # If you are using PyCharm #
 # User-specific stuff

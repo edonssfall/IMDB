@@ -19,8 +19,10 @@
 -DONE envs Examples
 -DONE npm build
 -DONE SSL
+-DONE Redirect from ip
+-Redirect to ssl
 -FastAPI
--circleCi
+-ADDED circleCi
 -DONE search field
 -social auth
 -write tests for api

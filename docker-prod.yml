@@ -9,7 +9,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/pgdata/
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   web:
     build: .
