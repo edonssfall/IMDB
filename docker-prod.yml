@@ -38,6 +38,7 @@ services:
       - proxy
     ports:
       - 80:80
+      - 443:443
     environment:
       - VIRTUAL_HOST=ithillel-leonid.ogir-ok.com
       - LETSENCRYPT_HOST=ithillel-leonid.ogir-ok.com
