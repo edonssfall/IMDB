@@ -38,9 +38,9 @@ services:
     ports:
       - 80:80
     environment:
-      - VIRTUAL_HOST=34.116.156.45
-      - LETSENCRYPT_HOST=34.116.156.45
-      - LETSENCRYPT_EMAIL=contact@34.116.156.45
+      - VIRTUAL_HOST=ithillel-leonid.ogir-ok.com
+      - LETSENCRYPT_HOST=ithillel-leonid.ogir-ok.com
+      - LETSENCRYPT_EMAIL=contact@ithillel-leonid.ogir-ok.com
       - VIRTUAL_PORT=80
 
 volumes:
