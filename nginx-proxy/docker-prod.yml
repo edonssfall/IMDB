@@ -19,10 +19,12 @@ services:
   ssl-generator:
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: unless-stopped
-    volumes_from:
-      - nginx-proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/nginx/vhost.d
+      - /etc/nginx/certs
+      - /usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - proxy
 
