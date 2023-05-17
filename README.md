@@ -11,10 +11,10 @@ https://ithillel-leonid.ogir-ok.com/
 ### Used Technologies
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Python](https://img.shields.io/badge/python-v3.9-blue.svg)
-* Django
-* PostgreSQL
-* Docker
-* Django REST framework
+![Django](https://img.shields.io/badge/Django-v4.2-green.svg)
+![PostgreSQL](https://img.shields.io/badge/postgresql-v13-blue.svg)
+![Docker](https://img.shields.io/badge/docker-v20.10-blue.svg)
+![Django REST framework](https://img.shields.io/badge/DjangoREST-v3.12.4-red.svg)
 * Bootstrap
 * Vue.js
 * Pinia
