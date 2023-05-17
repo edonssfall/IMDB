@@ -9,7 +9,8 @@ https://ithillel-leonid.ogir-ok.com/
 
 
 ### Used Technologies
-* Python
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![Python](https://img.shields.io/badge/python-v3.9-blue.svg)
 * Django
 * PostgreSQL
 * Docker
